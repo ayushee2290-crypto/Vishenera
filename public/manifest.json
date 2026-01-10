@@ -1,0 +1,16 @@
+{
+  "name": "Vishenera Technologies",
+  "short_name": "Vishenera",
+  "description": "Premium CloudOps, DBOps, AppOps, AI Automation & Digital Transformation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A1628",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

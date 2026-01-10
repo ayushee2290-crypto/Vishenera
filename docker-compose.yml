@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  vishenera-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vishenera-website
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+    env_file:
+      - .env.local
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - vishenera-network
+    labels:
+      - "com.vishenera.service=website"
+      - "com.vishenera.description=Vishenera Technologies Website"
+
+  # Cloudflare Tunnel for secure public access
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: vishenera-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${CF_TUNNEL_TOKEN:-}
+    networks:
+      - vishenera-network
+    depends_on:
+      - vishenera-web
+    labels:
+      - "com.vishenera.service=cloudflared"
+      - "com.vishenera.description=Cloudflare Tunnel for secure access"
+
+networks:
+  vishenera-network:
+    driver: bridge
+    name: vishenera-network
