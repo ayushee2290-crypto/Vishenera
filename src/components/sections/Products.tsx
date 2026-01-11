@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Bot, Cog, BarChart3, Workflow, ArrowRight, Check } from 'lucide-react';
@@ -19,6 +20,7 @@ const products = [
     ],
     badge: 'Popular',
     color: 'from-cyan-500 to-blue-500',
+    image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: Cog,
@@ -34,6 +36,7 @@ const products = [
     ],
     badge: 'Enterprise',
     color: 'from-purple-500 to-pink-500',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: Workflow,
@@ -49,21 +52,23 @@ const products = [
     ],
     badge: 'New',
     color: 'from-orange-500 to-red-500',
+    image: 'https://images.unsplash.com/photo-1518186233392-c232efbf2373?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: BarChart3,
-    title: 'Cloud Monitoring Dashboard',
-    description: 'Comprehensive monitoring and observability platform for cloud infrastructure and applications.',
+    title: 'Analytics & Monitoring',
+    description: 'Comprehensive monitoring and analytics platform for infrastructure, applications, and business metrics.',
     features: [
-      'Real-time Metrics',
-      'Custom Dashboards',
-      'Alert Management',
-      'Log Analysis',
-      'Cost Tracking',
-      'Performance Insights',
+      'Real-time Dashboards',
+      'Custom Metrics',
+      'Alerting & Notifications',
+      'Performance Analytics',
+      'Business Intelligence',
+      'Data Export & APIs',
     ],
-    badge: 'Essential',
+    badge: 'Featured',
     color: 'from-green-500 to-emerald-500',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
   },
 ];
 
@@ -98,41 +103,54 @@ export default function Products() {
               transition={{ delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="h-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all duration-300">
-                {/* Badge */}
-                <div className="absolute top-6 right-6">
-                  <span className={`px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${product.color} text-white`}>
-                    {product.badge}
-                  </span>
-                </div>
+              <div className="h-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-300">
+                {/* Image Header */}
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/50 to-transparent" />
+                  
+                  {/* Badge */}
+                  <div className="absolute top-4 right-4">
+                    <span className={`px-3 py-1 text-xs font-medium rounded-full bg-gradient-to-r ${product.color} text-white shadow-lg`}>
+                      {product.badge}
+                    </span>
+                  </div>
 
-                {/* Icon */}
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
-                  <product.icon className="w-8 h-8 text-white" />
+                  {/* Icon */}
+                  <div className={`absolute bottom-4 left-4 w-14 h-14 rounded-xl bg-gradient-to-br ${product.color} flex items-center justify-center shadow-lg`}>
+                    <product.icon className="w-7 h-7 text-white" />
+                  </div>
                 </div>
 
                 {/* Content */}
-                <h3 className="text-2xl font-semibold text-white mb-4">{product.title}</h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">{product.description}</p>
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold text-white mb-3">{product.title}</h3>
+                  <p className="text-gray-400 mb-6 leading-relaxed">{product.description}</p>
 
-                {/* Features */}
-                <div className="grid grid-cols-2 gap-3 mb-8">
-                  {product.features.map((feature) => (
-                    <div key={feature} className="flex items-center text-sm text-gray-300">
-                      <Check className="w-4 h-4 text-cyan-400 mr-2 flex-shrink-0" />
-                      {feature}
-                    </div>
-                  ))}
+                  {/* Features */}
+                  <div className="grid grid-cols-2 gap-3 mb-6">
+                    {product.features.slice(0, 4).map((feature) => (
+                      <div key={feature} className="flex items-center text-sm text-gray-300">
+                        <Check className="w-3 h-3 text-cyan-400 mr-2 flex-shrink-0" />
+                        <span className="truncate">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center text-cyan-400 hover:text-cyan-300 font-medium group/link"
+                  >
+                    Request Demo
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
-
-                {/* CTA */}
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center text-cyan-400 hover:text-cyan-300 font-medium group/link"
-                >
-                  Request Demo
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                </Link>
               </div>
             </motion.div>
           ))}

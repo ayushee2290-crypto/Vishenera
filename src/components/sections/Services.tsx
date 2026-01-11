@@ -14,6 +14,7 @@ const services = [
     href: '/services/cloudops',
     color: 'from-blue-500 to-cyan-500',
     image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80',
+    hoverImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: Database,
@@ -23,6 +24,7 @@ const services = [
     href: '/services/dbops',
     color: 'from-purple-500 to-pink-500',
     image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80',
+    hoverImage: 'https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: Rocket,
@@ -32,6 +34,7 @@ const services = [
     href: '/services/appops',
     color: 'from-orange-500 to-red-500',
     image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80',
+    hoverImage: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: BarChart3,
@@ -41,6 +44,7 @@ const services = [
     href: '/services/observability',
     color: 'from-green-500 to-emerald-500',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
+    hoverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: Bot,
@@ -50,6 +54,7 @@ const services = [
     href: '/services/ai-automation',
     color: 'from-cyan-500 to-blue-500',
     image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80',
+    hoverImage: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=600&q=80',
   },
   {
     icon: RefreshCw,
@@ -59,6 +64,7 @@ const services = [
     href: '/services/digital-transformation',
     color: 'from-indigo-500 to-purple-500',
     image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80',
+    hoverImage: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=600&q=80',
   },
 ];
 
@@ -91,35 +97,67 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group"
+              className="group cursor-pointer"
+              whileHover={{ y: -5 }}
             >
-              <div className="h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-300">
-                {/* Image */}
+              <div className="h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/20">
+                {/* Image with Hover Effect */}
                 <div className="relative h-40 overflow-hidden">
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover transition-all duration-500 group-hover:scale-110 group-hover:opacity-0"
+                  />
+                  <Image
+                    src={service.hoverImage}
+                    alt={`${service.title} hover`}
+                    fill
+                    className="object-cover transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 to-transparent" />
-                  <div className={`absolute bottom-4 left-4 w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center`}>
+                  
+                  {/* Floating Icon */}
+                  <motion.div 
+                    className={`absolute bottom-4 left-4 w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg`}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
                     <service.icon className="w-6 h-6 text-white" />
+                  </motion.div>
+
+                  {/* Service Number Badge */}
+                  <div className="absolute top-4 right-4 w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20">
+                    <span className="text-white text-sm font-bold">{String(index + 1).padStart(2, '0')}</span>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
+                  <motion.h3 
+                    className="text-xl font-semibold text-white mb-3 group-hover:text-cyan-300 transition-colors"
+                    whileHover={{ x: 5 }}
+                  >
+                    {service.title}
+                  </motion.h3>
                   <p className="text-gray-400 mb-4 leading-relaxed text-sm">{service.description}</p>
 
                   {/* Features */}
                   <ul className="space-y-2 mb-4">
-                    {service.features.slice(0, 3).map((feature) => (
-                      <li key={feature} className="flex items-center text-sm text-gray-300">
-                        <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3" />
+                    {service.features.slice(0, 3).map((feature, featureIndex) => (
+                      <motion.li 
+                        key={feature} 
+                        className="flex items-center text-sm text-gray-300"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: (index * 0.1) + (featureIndex * 0.05) }}
+                      >
+                        <motion.span 
+                          className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"
+                          whileHover={{ scale: 1.5 }}
+                        />
                         {feature}
-                      </li>
+                      </motion.li>
                     ))}
                   </ul>
 
@@ -128,7 +166,7 @@ export default function Services() {
                     href={service.href}
                     className="inline-flex items-center text-cyan-400 hover:text-cyan-300 text-sm font-medium group/link"
                   >
-                    Learn More
+                    <motion.span whileHover={{ x: 5 }}>Learn More</motion.span>
                     <ArrowRight className="ml-2 w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 </div>

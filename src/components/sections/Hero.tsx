@@ -122,57 +122,32 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Quick Value Highlights */}
+        {/* Key Metrics */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-5 gap-4"
+          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
-          {highlights.map((item, index) => (
+          {[
+            { label: '500+', description: 'Projects Delivered' },
+            { label: '99.9%', description: 'Uptime SLA' },
+            { label: '24/7', description: 'Expert Support' },
+            { label: '10+', description: 'Years Experience' },
+          ].map((metric, index) => (
             <motion.div
-              key={item.label}
+              key={metric.label}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1 + index * 0.1 }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 hover:border-white/20 transition-all group"
+              className="text-center"
             >
-              <item.icon className="w-6 h-6 text-cyan-400 mb-2 group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-medium text-sm">{item.label}</h3>
-              <p className="text-gray-400 text-xs mt-1">{item.description}</p>
+              <div className="text-3xl font-bold text-cyan-400 mb-1">{metric.label}</div>
+              <div className="text-sm text-gray-400">{metric.description}</div>
             </motion.div>
           ))}
         </motion.div>
       </div>
-
-      {/* Trust Signals Strip */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-0 left-0 right-0 bg-navy-900/80 backdrop-blur-sm border-t border-white/10"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-gray-400">
-            <span className="flex items-center space-x-2">
-              <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
-              <span>Enterprise-grade security</span>
-            </span>
-            <span className="flex items-center space-x-2">
-              <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full" />
-              <span>Cloud-native & automation-first</span>
-            </span>
-            <span className="flex items-center space-x-2">
-              <span className="w-1.5 h-1.5 bg-primary-400 rounded-full" />
-              <span>Product + service expertise</span>
-            </span>
-            <span className="flex items-center space-x-2">
-              <span className="w-1.5 h-1.5 bg-purple-400 rounded-full" />
-              <span>24×7 monitoring & support</span>
-            </span>
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 }

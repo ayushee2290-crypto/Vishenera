@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Cloud, Database, Rocket, BarChart3, Bot, RefreshCw, Check, ArrowRight, ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -10,6 +11,7 @@ const services = {
     tagline: 'Cloud Infrastructure Excellence',
     description: 'Comprehensive cloud infrastructure management, optimization, cost control, and multi-cloud strategies for enterprises.',
     longDescription: 'Transform your cloud infrastructure with our enterprise-grade CloudOps services. We provide end-to-end cloud management including architecture design, migration, optimization, and ongoing operations. Our team ensures your cloud environment is secure, scalable, and cost-effective.',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80',
     features: [
       { title: 'Infrastructure as Code (IaC)', description: 'Automated, version-controlled infrastructure deployment using Terraform, Pulumi, and CloudFormation.' },
       { title: 'Cost Optimization & FinOps', description: 'Continuous cost monitoring, right-sizing recommendations, and reserved capacity management.' },
@@ -27,6 +29,7 @@ const services = {
     tagline: 'Database Operations Mastery',
     description: 'High-performance database operations including tuning, security, automated backups, and disaster recovery.',
     longDescription: 'Ensure your databases run at peak performance with our comprehensive DBOps services. From optimization to security, we handle all aspects of database operations for SQL, NoSQL, and cloud-native databases.',
+    image: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=1200&q=80',
     features: [
       { title: 'Performance Tuning', description: 'Query optimization, indexing strategies, and resource allocation for maximum performance.' },
       { title: 'Automated Backups', description: 'Scheduled backups, point-in-time recovery, and geo-redundant storage solutions.' },
@@ -44,6 +47,7 @@ const services = {
     tagline: 'Application Delivery Excellence',
     description: 'End-to-end application lifecycle management, CI/CD pipelines, zero-downtime deployments, and scaling.',
     longDescription: 'Streamline your application delivery with modern AppOps practices. We implement robust CI/CD pipelines and ensure reliable, scalable deployments across all environments.',
+    image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=1200&q=80',
     features: [
       { title: 'CI/CD Pipeline Setup', description: 'Automated build, test, and deployment pipelines using Jenkins, GitHub Actions, or GitLab CI.' },
       { title: 'Zero-Downtime Deployments', description: 'Blue-green, canary, and rolling deployment strategies for seamless releases.' },
@@ -61,6 +65,7 @@ const services = {
     tagline: 'Complete System Visibility',
     description: 'Full-stack monitoring, logging, alerting, and SLA visibility for complete operational awareness.',
     longDescription: 'Gain complete visibility into your systems with our observability solutions. Monitor, analyze, and optimize your entire technology stack with real-time insights and intelligent alerting.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80',
     features: [
       { title: 'Real-time Monitoring', description: 'Infrastructure, application, and business metrics with customizable dashboards.' },
       { title: 'Centralized Logging', description: 'Log aggregation, search, and analysis using ELK, Loki, or cloud-native solutions.' },
@@ -78,6 +83,7 @@ const services = {
     tagline: 'Intelligent Business Automation',
     description: 'Intelligent conversational AI, workflow automation, and AI-powered operations for modern businesses.',
     longDescription: 'Leverage AI to transform customer interactions and automate business processes. Our intelligent solutions drive efficiency, enhance user experience, and reduce operational costs.',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80',
     features: [
       { title: 'Custom AI Chatbots', description: 'Context-aware chatbots for customer support, sales, and internal operations.' },
       { title: 'Process Automation', description: 'RPA and intelligent automation for repetitive tasks and workflows.' },
@@ -95,6 +101,7 @@ const services = {
     tagline: 'Future-Ready Business',
     description: 'Strategic digital presence modernization, legacy system upgrades, and business process automation.',
     longDescription: 'Embark on your digital transformation journey with expert guidance. We help modernize legacy systems, build future-ready digital solutions, and create a roadmap for sustainable growth.',
+    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80',
     features: [
       { title: 'Digital Strategy', description: 'Comprehensive assessment and roadmap for digital initiatives.' },
       { title: 'Legacy Modernization', description: 'Re-platform, re-architect, or replace legacy systems with modern alternatives.' },
@@ -137,6 +144,18 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
     <div className="min-h-screen bg-navy-950 pt-24">
       {/* Hero */}
       <div className="relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src={service.image}
+            alt={service.title}
+            fill
+            className="object-cover opacity-20"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-navy-950/90 to-navy-950" />
+        </div>
+        
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
@@ -186,6 +205,20 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Service Image Showcase */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="relative h-80 rounded-2xl overflow-hidden">
+          <Image
+            src={service.image}
+            alt={service.title}
+            fill
+            className="object-cover"
+          />
+          <div className={`absolute inset-0 bg-gradient-to-r ${service.color} opacity-30`} />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent" />
         </div>
       </div>
 

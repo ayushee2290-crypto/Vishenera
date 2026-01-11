@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Bot, Cog, BarChart3, Workflow, ArrowRight, Check, Sparkles } from 'lucide-react';
@@ -23,6 +24,7 @@ const products = [
     pricing: 'Starting at $499/month',
     badge: 'Most Popular',
     color: 'from-cyan-500 to-blue-500',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80',
   },
   {
     icon: Cog,
@@ -42,6 +44,7 @@ const products = [
     pricing: 'Custom Pricing',
     badge: 'Enterprise',
     color: 'from-purple-500 to-pink-500',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
   },
   {
     icon: Workflow,
@@ -61,6 +64,7 @@ const products = [
     pricing: 'Starting at $299/month',
     badge: 'New',
     color: 'from-orange-500 to-red-500',
+    image: 'https://images.unsplash.com/photo-1518186233392-c232efbf2373?auto=format&fit=crop&w=800&q=80',
   },
   {
     icon: BarChart3,
@@ -80,6 +84,7 @@ const products = [
     pricing: 'Starting at $199/month',
     badge: 'Essential',
     color: 'from-green-500 to-emerald-500',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -112,19 +117,37 @@ export default function ProductsPage() {
               transition={{ delay: index * 0.1 }}
               className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden"
             >
-              <div className="grid lg:grid-cols-2 gap-0">
-                {/* Content */}
-                <div className="p-8 lg:p-12">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.color} flex items-center justify-center`}>
-                      <product.icon className="w-8 h-8 text-white" />
+              {/* Product Image Header */}
+              <div className="relative h-64 lg:h-80">
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  fill
+                  className="object-cover"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-r ${product.color} opacity-40`} />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/50 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.color} flex items-center justify-center`}>
+                        <product.icon className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h2 className="text-3xl font-bold text-white">{product.title}</h2>
+                        <p className="text-gray-300">{product.description}</p>
+                      </div>
                     </div>
-                    <span className={`px-4 py-1.5 text-sm font-medium rounded-full bg-gradient-to-r ${product.color} text-white`}>
+                    <span className={`hidden sm:block px-4 py-1.5 text-sm font-medium rounded-full bg-gradient-to-r ${product.color} text-white`}>
                       {product.badge}
                     </span>
                   </div>
+                </div>
+              </div>
 
-                  <h2 className="text-3xl font-bold text-white mb-4">{product.title}</h2>
+              <div className="grid lg:grid-cols-2 gap-0">
+                {/* Content */}
+                <div className="p-8 lg:p-12">
                   <p className="text-gray-300 text-lg mb-6 leading-relaxed">{product.longDescription}</p>
 
                   <div className="flex items-center space-x-2 mb-8">
